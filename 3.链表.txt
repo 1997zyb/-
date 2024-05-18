@@ -1,0 +1,28 @@
+单链表
+  每个结点除了存储数据元素外，还要存储下一个信息的存储位置
+  定义一个单链表
+  
+  struct LNode{
+    int data; // 每个节点存放一个数据元素（节点的数据域）
+    struct LNode *next; //指针指向下一个节点（节点的指针域）
+  }LNode,*LinkList //LinkList为指向LNode的指针类型
+  
+  bool InitList(LinkList, &L){
+    L = null; // 空表，暂时还没有任何节点
+    return true;
+  }
+
+  void test(){
+    LinkList L; //声明一个指向单链表的指针
+    InitList(L); //初始化一个空表
+  }
+
+  单链表的插入与删除
+
+双链表
+循环链表
+静态链表
+
+
+顺序存储的优点：可随机存取，存储密度高
+缺点：要求大片连续空间，改变容量不方便

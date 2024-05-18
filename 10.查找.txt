@@ -1,0 +1,38 @@
+平均查找长度:
+查找成功和查找失败
+
+查找成功:
+  假如有n个元素
+  每个被查找的概率是1/n,
+  1*(1/n)+2*(1/n)+3*(1/n)+4*(1/n)+5*(1/n)+6*(1/n)+......+n*(1/n)=(n+1)/2
+
+查找失败:
+需要对比n+1次
+时间复杂度为O(n)
+
+
+
+折半查找(二分查找):仅适用于有序的顺序表
+
+int Binary_Search(SStable L,int key){
+  int low = 0,heigh = L.tableLen - 1;
+  while(low<=heigh){
+    mid = (low+high)/2;   // 取中间位置
+    if(L.elem[mid] == key){
+      return mid;   // 查找成功则返回所在位置
+    }else if(L.elem[mid] > key){
+      heigh = mid - 1;   // 从前半部分继续查找
+    }else{
+      low = mid + 1;   // 从后半部分继续查找
+    }
+  }
+  return -1;   // 查找失败,返回-1
+}
+
+
+
+
+
+
+
+

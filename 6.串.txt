@@ -1,0 +1,157 @@
+串：即字符串，是由零个或多个字符串组成的优先序列
+子串：串中任意连续个字符组成的子序列
+主串：包含字串的串
+字符在主串中的位置：字符在串中的序号
+子串在主串中的位置：子串的第一个字符在主串中的位置
+
+
+//赋值操作
+StrAssign(&T,chars)：赋值操作。把串T赋值为chars。
+StrCopy(&T,S)：复制操作。由串S复制得到串T。
+StrEmpty(S)：判空操作。若串S为空，则返回true，否则返回false。
+StrLength(S)：求串长。返回串S的个数。
+ClearString(&S)：清空操作。将串S清空为空串。
+DestoryString(&S)：销毁串。将串S销毁（回收存储空间）。
+Concat(&T,S1,S2)：串联接。用T返回由S1和S2联接的新串
+SubString(&Sub,S,pos,len)：求子串。用Sub接收串S的第pos个位置开始，长度为len的子串
+Index(S,T,pos)：
+
+
+
+
+存储结构：
+ 
+  #define MAXLEN 255   //预定义最大串长为255
+  typedef struct{
+    char ch[MAXLEN];   //每个分量存储一个字符
+    int length;   //串的实际长度
+  }SString;
+
+
+
+动态
+  typedef struct{
+    char *ch;   //按串长分配存储区，ch指向串的基地址
+    int length;   // 串的长度
+  }HString;
+  HString S;
+  S.ch = (char *)malloc(MAXLEN * sizeof(char));
+  S.length = 0;
+
+
+
+  求子串
+  （用Sub返回串S的从pos位置起，长度为len的字串）
+  bool SubString(SString &Sub, SString S, int pos, int len){
+    if(pos + len - 1 > S.length){
+      return false;
+    }else{
+      for(int i=pos,i<pos+len;i++){
+        Sub.ch[i-pos+1] = S.ch[i]
+      }
+        Sub.length = len;
+        return true
+    }
+  }
+
+  int Index(SString S, SString T){
+    int i = 1,n=StrLength(S),m=StrLength(T);   // 求出S和T的长度
+    SString sub;   //用于暂存子串
+    while(i<=n-m+1){   // 最多匹配n-m+1次
+    SubString(sub,S,i,m);   //取出从位置i开始，长度为m的子串
+    if(Str(Sub,T) != 0){
+      ++i;
+    }else {
+      return i;   // 返回子串在主串中的位置
+    }
+    }
+    return 0;   //S中不存在与T相等的子串
+  }
+
+  比较两个串的大小
+  StrCompare(S,T)：比较两个串的大小。若S>T，则返回“大于”，等于T，返回“等于”，小于T，返回“小于”
+
+
+
+  //定位
+  int Index(SString S, SString T){
+    int i = 1, n=StrLength(S), m=StrLength(T); 
+    SString sub; // 用于暂存子串
+    while(i<=n-m+1){
+      SubString(sub,S,i,m);
+      if(StrCompare(sub,T) != 0){
+        ++i;
+      }else{
+        return i;
+      }
+    }
+    return 0; //S中不存在与T相等子串
+  }
+
+
+
+字符串的模式匹配：在主串中知道到与模式串相同的子串，并返回其所在位置
+
+  朴素模式匹配算法
+    假如主串长度为n，模式串长度为m，
+    最多多有n-m+1个子串
+    将主串中所有长度为m的子串依次与模式串对比，直到找到完全匹配的子串，或所有子串的都不匹配为止
+
+    int Index(SString S,SString T){
+      int i=1,i=1;
+      while(i<S.length && j<T.length){
+          if(S.ch[i] == T.ch[i]){
+            ++i;++j;   // 继续比较后面的字符
+          }else{
+            i=i-j+2;
+            j=1;   // 指针退回重新匹配
+          }
+      }
+      if(j>T.length){
+        return i-T.length;
+      }else {
+        return 0;
+      }
+    }
+    复杂度：O(nm)
+
+
+  KMP算法
+  不匹配的字符之前，一定是和模式串一致的
+  要求出next数组，
+
+  int Index_KMP(SString S,SString T,int next[]){
+    int i=1, j=1;
+    while(i<S.length && j<=T.length){
+      if(j==0 || S.ch[i]==T.ch[i]){
+        ++i;++j;
+      }else{
+        j = next[j];
+      }
+    }
+    if(j>T.length){
+      return i-T.length;
+    }else{
+      return 0;
+    }
+  }
+
+  next[1]都写0；
+  next[2]都写1；
+  next数组的作用：当模式串的第j个字符匹配失效时，从模式串的第next[j]的继续往后匹配
+  其他next：在不匹配的位置前，画一条线；模式串一步一步往后退，
+  直到分界线之前“能对上”，或模式串完全跨国分界线。
+  此时j指向哪里，next数组就是多少
+
+  复杂度：O(m+n)
+
+
+
+
+ 
+
+
+
+
+
+

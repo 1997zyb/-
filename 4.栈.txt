@@ -1,0 +1,56 @@
+栈：是只允许在一端及逆行插入或删除的线性表
+  栈顶
+  栈底
+  空栈
+  特点：先进后出
+
+  InitStack(&S)：初始化栈，构造一个空栈，分配内存空间
+  DestoryStack(&L)：销毁栈。销毁并释放栈S的内存空间
+  PushStack(&S,x)：进栈。若栈S未满，则将x加入使之成为新栈顶
+  PopStack(&S,&x)：出栈。若栈S未空，则弹出栈顶元素，并用x返回 
+  GetTop(S,&x)：读栈顶元素。若栈S未空，则用x返回栈顶元素 
+  StockEmpty(S)：判断一个栈S是否为空 
+
+  创建一个栈：
+  #define MaxSize 10    //定义栈中元素的最大个数
+  typedef struct{
+    int data[MaxSize];  //静态数据存放栈中元素
+    int top;  //栈顶指针
+  }SqTack;
+
+  void testStack(){
+    SqTack S;  //声明一个顺序栈（分配空间）
+  }
+
+  // 新元素入栈
+  bool Push(SqTack &S, int x){
+    if(S.top == MaxSize - 1){
+      return false;
+    }
+    S.top = S.top + 1;
+    S.data[S.top] = x;
+    return true;
+  }
+
+  // 出栈操作
+  bool Pop(SqTack &S,int &x){
+    if(S.top === -1){
+      return false;
+    }
+    x = S.data[S.top]; //栈顶元素先出栈
+    S.top = S.top - 1; //指针减1
+    return true;
+  }
+
+
+  链栈：
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,34 @@
+<script>
+  // var arr = [1, 2, 4, 5, 6]
+  // function del(arr, i) {
+  //   for (let j = arr.length - 1; j >= i; j--) {
+  //     if (j === 3) {
+  //       delete arr[j - 1]
+  //     }
+  //   }
+  //   arr.length--
+  // }
+  // del(arr, 3)
+  // console.log(arr);
+  var str1 = 'zhangdao'
+  var str2 = 'zhangda'
+  function compare(str1, str2) {
+    if (str1.length > str2.length) {
+      str2 = str2.padEnd(str1.length, "#")
+    } else if (str1.length < str2.length) {
+      str1 = str1.padEnd(str2.length, "#")
+    }
+    let res = ''
+    for (var i = 0; i < str1.length; i++) {
+      if (str1[i] != str2[i] && str1[i] != "#" && str2[2] != "#") {
+        res = str1[i] > str2[i] ? 'str1大于str2' : 'str1小于str2'
+        break;
+      } else {
+        res = str1[i] === '#' ? 'str1小于str2' : str2[i] === '#' ? 'str1大于str2' : 'str1等于str2'
+      }
+    }
+    return res
+  }
+  var comp = compare(str1, str2)
+  console.log(comp);
+</script>
